@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕸</text></svg>"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="AR4CHNE — コードベースを深く理解し、的確なコードを生成するAIエージェント。"
+    />
+    <title>AR4CHNE — Coming Soon</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <!-- Loading Screen — Spider Web Spinner -->
+    <div id="loader">
+      <svg class="loader-web network-motif" viewBox="0 0 200 200" width="120" height="120">
+        <!-- Outer HUD Rings -->
+        <circle
+          class="loader-ring loader-ring-4"
+          cx="100"
+          cy="100"
+          r="90"
+          stroke-dasharray="2 10"
+        />
+        <circle
+          class="loader-ring loader-ring-3"
+          cx="100"
+          cy="100"
+          r="75"
+          stroke-dasharray="10 5 2 5"
+        />
+        <circle
+          class="loader-ring loader-ring-2"
+          cx="100"
+          cy="100"
+          r="60"
+          stroke-dasharray="40 10 5 10"
+        />
+        <!-- Geometric Network Lines -->
+        <path class="loader-spoke" d="M100 100 L100 25 L130 15" stroke="currentColor" fill="none" />
+        <path class="loader-spoke" d="M100 100 L165 45 L180 70" stroke="currentColor" fill="none" />
+        <path
+          class="loader-spoke"
+          d="M100 100 L185 100 L175 130"
+          stroke="currentColor"
+          fill="none"
+        />
+        <path
+          class="loader-spoke"
+          d="M100 100 L155 160 L120 180"
+          stroke="currentColor"
+          fill="none"
+        />
+        <path
+          class="loader-spoke"
+          d="M100 100 L100 185 L70 180"
+          stroke="currentColor"
+          fill="none"
+        />
+        <path class="loader-spoke" d="M100 100 L45 155 L25 120" stroke="currentColor" fill="none" />
+        <path class="loader-spoke" d="M100 100 L15 100 L25 70" stroke="currentColor" fill="none" />
+        <path class="loader-spoke" d="M100 100 L45 45 L70 25" stroke="currentColor" fill="none" />
+        <!-- Inner Core -->
+        <circle class="loader-ring loader-ring-1" cx="100" cy="100" r="20" stroke-dasharray="100" />
+        <circle class="loader-node" cx="100" cy="100" r="4" fill="var(--accent)" />
+      </svg>
+      <span class="loader-text">INITIALIZING...</span>
+    </div>
+
+    <!-- Three.js Canvas -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Cursor Trail Canvas (PC only) -->
+    <canvas id="cursor-trail"></canvas>
+
+    <!-- Noise overlay for texture -->
+    <div class="noise-overlay"></div>
+
+    <!-- Main Content -->
+    <main id="app">
+      <!-- Hero Section -->
+      <section id="hero" class="section">
+        <div class="hero-content">
+          <div class="logo-container">
+            <h1 class="logo">
+              <span class="logo-char">A</span>
+              <span class="logo-char">R</span>
+              <span class="logo-char accent">4</span>
+              <span class="logo-char">C</span>
+              <span class="logo-char">H</span>
+              <span class="logo-char">N</span>
+              <span class="logo-char">E</span>
+            </h1>
+            <div class="logo-line"></div>
+            <!-- Logo silk threads (SVG overlay) -->
+            <svg class="logo-threads" aria-hidden="true">
+              <path class="logo-thread lt-1" d="M0,0 Q50,20 100,5" />
+              <path class="logo-thread lt-2" d="M20,30 Q60,45 110,25" />
+              <path class="logo-thread lt-3" d="M10,5 Q55,35 95,10" />
+              <path class="logo-thread lt-4" d="M5,25 Q45,8 85,28" />
+              <path class="logo-thread lt-5" d="M15,20 Q70,40 120,15" />
+            </svg>
+          </div>
+          <p class="tagline">AI-Augmented Developer</p>
+          <p class="sub-tagline">AIの思考力と、<wbr />人間の設計力を統合する。</p>
+          <div class="scroll-indicator">
+            <div class="scroll-thread">
+              <div class="scroll-line"></div>
+              <div class="scroll-dot"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Concept Section -->
+      <section id="concept" class="section">
+        <div class="section-content">
+          <span class="section-label">001 &mdash; CONCEPT</span>
+          <h2 class="section-title concept-title">
+            AIを<br /><span style="display: inline-block; white-space: nowrap"
+              >『ペアプログラマー』に。</span
+            >
+          </h2>
+          <p class="section-desc">
+            単なるコード生成ではなく、プロジェクトの文脈をAIと共有し、<br />
+            共に<em>一貫性のある解決策</em>を模索する。
+          </p>
+        </div>
+      </section>
+
+      <!-- Features Section -->
+      <section id="features" class="section">
+        <div class="section-content">
+          <span class="section-label">002 &mdash; METHODOLOGY</span>
+          <div class="features-list">
+            <div class="feature-item">
+              <div class="feature-header">
+                <div class="feature-number">01</div>
+                <h3>Deep Context</h3>
+              </div>
+              <p>
+                プロジェクト全体の<span style="display: inline-block">依存関係や</span
+                ><span style="display: inline-block">アーキテクチャを</span
+                ><span style="display: inline-block">AIに</span
+                ><span style="display: inline-block">読み込ませ、</span><wbr />コードの<span
+                  style="display: inline-block"
+                  >影響範囲を</span
+                ><span style="display: inline-block">正確に</span
+                ><span style="display: inline-block">把握する。</span>
+              </p>
+              <div class="feature-line"></div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-header">
+                <div class="feature-number">02</div>
+                <h3>Pair Engineering</h3>
+              </div>
+              <p>
+                <span style="display: inline-block">人間の設計思想に</span
+                ><span style="display: inline-block">AIの生成力を掛け合わせる。</span
+                ><br class="desktop-only" />
+                <span style="display: inline-block">チームの規約とプロジェクトに</span><wbr /><span
+                  style="display: inline-block"
+                  >自然にフィットするコードを</span
+                ><br class="desktop-only" />
+                <span style="display: inline-block">共に作り上げる。</span>
+              </p>
+              <div class="feature-line"></div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-header">
+                <div class="feature-number">03</div>
+                <h3>Continuous Adaptation</h3>
+              </div>
+              <p>
+                <span style="display: inline-block">継続的な学習と</span
+                ><span style="display: inline-block">フィードバックループを回し、</span><wbr /><span
+                  style="display: inline-block"
+                  >日々の業務を通じて</span
+                ><span style="display: inline-block">より洗練された</span
+                ><span style="display: inline-block">開発フローを</span>構築する。
+              </p>
+              <div class="feature-line"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Countdown Section -->
+      <section id="countdown" class="section">
+        <div class="section-content">
+          <span class="section-label">003 &mdash; DEPLOYMENT</span>
+          <h2 class="section-title">Booting up...</h2>
+          <div class="countdown-display">
+            <div class="countdown-unit">
+              <span class="countdown-number" id="days">00</span>
+              <span class="countdown-label">日</span>
+            </div>
+            <div class="countdown-separator">:</div>
+            <div class="countdown-unit">
+              <span class="countdown-number" id="hours">00</span>
+              <span class="countdown-label">時間</span>
+            </div>
+            <div class="countdown-separator">:</div>
+            <div class="countdown-unit">
+              <span class="countdown-number" id="minutes">00</span>
+              <span class="countdown-label">分</span>
+            </div>
+            <div class="countdown-separator">:</div>
+            <div class="countdown-unit">
+              <span class="countdown-number" id="seconds">00</span>
+              <span class="countdown-label">秒</span>
+            </div>
+          </div>
+          <!-- Terminal Resume Trigger -->
+          <div class="profile-trigger" id="profile-trigger">
+            <button class="profile-btn" id="profile-btn">./profile</button>
+          </div>
+
+          <!-- Terminal Window (hidden by default) -->
+          <div class="terminal-window" id="terminal-window">
+            <div class="terminal-output" id="terminal-output"></div>
+            <div class="terminal-footer" id="terminal-footer">
+              <button class="terminal-action" id="terminal-replay">REPLAY</button>
+              <button class="terminal-action" id="terminal-copy">COPY</button>
+              <button class="terminal-action" id="terminal-close">CLOSE</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer>
+        <div class="footer-content">
+          <span class="footer-logo">AR4CHNE</span>
+          <span class="footer-copy">&copy; 2026 &mdash; All rights reserved.</span>
+        </div>
+      </footer>
+    </main>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

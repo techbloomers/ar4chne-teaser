@@ -1,0 +1,852 @@
+/* ============================================
+   AR4CHNE Teaser — Styles
+   ============================================ */
+
+/* --- CSS Custom Properties --- */
+:root {
+  --bg: #0a0a0c;
+  --bg-elevated: #111114;
+  --text: #d4d4d8;
+  --text-muted: #71717a;
+  --accent: #c084fc;
+  --accent-bright: #a855f7;
+  --accent-glow: rgba(168, 85, 247, 0.4);
+  --thread: rgba(168, 85, 247, 0.15);
+  --font-sans: 'Space Grotesk', 'Zen Kaku Gothic New', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* --- Reset --- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) var(--bg);
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* ============================================
+   LOADER — Spider Web Spinner
+   ============================================ */
+#loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  gap: 28px;
+}
+
+.loader-web {
+  opacity: 0.8;
+}
+
+.loader-spoke {
+  stroke: var(--accent);
+  stroke-width: 1.5;
+  opacity: 0;
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  animation: drawSpoke 1s ease-out forwards;
+}
+
+.loader-spoke:nth-of-type(1) {
+  animation-delay: 0.05s;
+}
+
+.loader-spoke:nth-of-type(2) {
+  animation-delay: 0.1s;
+}
+
+.loader-spoke:nth-of-type(3) {
+  animation-delay: 0.15s;
+}
+
+.loader-spoke:nth-of-type(4) {
+  animation-delay: 0.2s;
+}
+
+.loader-spoke:nth-of-type(5) {
+  animation-delay: 0.25s;
+}
+
+.loader-spoke:nth-of-type(6) {
+  animation-delay: 0.3s;
+}
+
+.loader-spoke:nth-of-type(7) {
+  animation-delay: 0.35s;
+}
+
+.loader-spoke:nth-of-type(8) {
+  animation-delay: 0.4s;
+}
+
+@keyframes drawSpoke {
+  0% {
+    opacity: 0;
+    stroke-dashoffset: 200;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.6;
+    stroke-dashoffset: 0;
+  }
+}
+
+.loader-ring {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 0.5;
+  opacity: 0;
+  transform-origin: center;
+  animation:
+    fadeSpinHUD 1.5s ease-out forwards,
+    spinHUD 12s linear infinite;
+}
+
+.loader-ring-1 {
+  animation-delay: 0.3s;
+  stroke-width: 1.5;
+}
+
+.loader-ring-2 {
+  animation-delay: 0.5s;
+}
+
+.loader-ring-3 {
+  animation-delay: 0.7s;
+  animation-direction: reverse;
+}
+
+.loader-ring-4 {
+  animation-delay: 0.9s;
+}
+
+@keyframes fadeSpinHUD {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) rotate(-60deg);
+  }
+
+  100% {
+    opacity: 0.6;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes spinHUD {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loader-text {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 6px;
+  color: var(--text-muted);
+  animation: loaderTextPulse 1.2s ease-in-out infinite;
+  animation-delay: 0.5s;
+  opacity: 0;
+}
+
+@keyframes loaderTextPulse {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* --- Background Canvas --- */
+#bg-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* --- Cursor Trail Canvas --- */
+#cursor-trail {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ============================================
+   SILK OVERLAY — Full-viewport SVG for
+   spider-thread shoot animations
+   ============================================ */
+#silk-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 4;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.silk-shoot {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  opacity: 0;
+}
+
+/* Small anchor dots where threads attach to section edges */
+.silk-anchor {
+  fill: var(--accent);
+  opacity: 0;
+}
+
+/* --- Noise Overlay --- */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+
+/* --- Sections --- */
+.section {
+  position: relative;
+  z-index: 6;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 40px;
+}
+
+.section-content {
+  max-width: 1100px;
+  width: 100%;
+}
+
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: var(--accent);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 40px;
+  opacity: 0;
+}
+
+.section-title {
+  font-size: clamp(3rem, 7vw, 6rem);
+  font-weight: 200;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  margin-bottom: 40px;
+  opacity: 0;
+}
+
+.section-desc {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: var(--text-muted);
+  font-weight: 500;
+  max-width: 700px;
+  line-height: 1.8;
+  letter-spacing: 0.02em;
+  opacity: 0;
+}
+
+.section-desc em {
+  color: var(--text);
+  font-style: normal;
+  font-weight: 400;
+}
+
+/* ============================================
+   HERO — Logo Threads
+   ============================================ */
+#hero {
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.hero-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.logo-container {
+  position: relative;
+  overflow: visible;
+}
+
+.logo {
+  font-size: clamp(4rem, 12vw, 10rem);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  line-height: 1;
+  display: flex;
+  gap: 0.02em;
+}
+
+.logo-char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(80px);
+}
+
+.logo-char.accent {
+  color: var(--accent);
+  text-shadow: 0 0 60px var(--accent-glow);
+}
+
+.logo-line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+
+/* Logo silk threads (SVG overlay) */
+.logo-threads {
+  position: absolute;
+  top: -10%;
+  left: -5%;
+  width: 110%;
+  height: 120%;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.logo-thread {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 0.8;
+  opacity: 0;
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+}
+
+.tagline {
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  color: var(--text-muted);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.sub-tagline {
+  font-family: var(--font-mono);
+  font-size: clamp(0.75rem, 1.5vw, 0.875rem);
+  font-weight: 500;
+  color: var(--text-muted);
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* ============================================
+   SCROLL INDICATOR — Spider Thread
+   ============================================ */
+.scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  opacity: 0;
+}
+
+.scroll-indicator span {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: var(--text-muted);
+}
+
+.scroll-thread {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: threadSway 3s ease-in-out infinite;
+  transform-origin: top center;
+}
+
+.scroll-line {
+  width: 1px;
+  height: 50px;
+  background: linear-gradient(to bottom, var(--accent), rgba(168, 85, 247, 0.2));
+}
+
+.scroll-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent-glow);
+  animation: dotPulse 2s ease-in-out infinite;
+}
+
+@keyframes threadSway {
+  0%,
+  100% {
+    transform: rotate(-2deg);
+  }
+
+  25% {
+    transform: rotate(1.5deg);
+  }
+
+  50% {
+    transform: rotate(-1deg);
+  }
+
+  75% {
+    transform: rotate(2deg);
+  }
+}
+
+@keyframes dotPulse {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(0.8);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+/* --- Concept --- */
+.concept-title {
+  font-weight: 200;
+}
+
+/* ============================================
+   FEATURES — Card Hover Threads
+   ============================================ */
+.features-list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 80px;
+}
+
+.feature-item {
+  position: relative;
+  padding: 40px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  background: rgba(10, 10, 12, 0.4);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  transform: translateY(40px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+  transition:
+    background 0.4s ease,
+    border-color 0.4s ease,
+    padding-left 0.4s ease,
+    padding-right 0.4s ease;
+}
+
+.feature-item:hover {
+  border-top-color: rgba(168, 85, 247, 0.3);
+  padding-left: 20px;
+  padding-right: 20px;
+  background: linear-gradient(90deg, rgba(168, 85, 247, 0.03), transparent);
+}
+
+.feature-header {
+  display: flex;
+  align-items: baseline;
+  gap: 32px;
+  flex: 1;
+}
+
+.feature-number {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  color: var(--accent);
+  opacity: 0.5;
+  font-weight: 300;
+}
+
+.feature-item h3 {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  color: var(--text);
+}
+
+.feature-item p {
+  flex: 1;
+  font-size: clamp(0.9rem, 1.1vw, 1rem);
+  font-weight: 500;
+  color: var(--text-muted);
+  line-height: 1.7;
+  text-align: left;
+  max-width: 440px;
+  position: relative;
+  transition: color 0.4s ease;
+}
+
+.feature-item:hover p {
+  color: var(--text);
+}
+
+/* 説明文の背後だけにうっすらとした紫の光沢のレイヤーを置く（テキストの形は崩さない） */
+.feature-item p::before {
+  content: '';
+  position: absolute;
+  inset: -12px -20px;
+  background: radial-gradient(ellipse at center, rgba(168, 85, 247, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.8;
+}
+
+.feature-line {
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+/* ============================================
+   COUNTDOWN
+   ============================================ */
+#countdown {
+  text-align: center;
+}
+
+#countdown .section-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.countdown-display {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 60px;
+  opacity: 0;
+}
+
+.countdown-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.countdown-number {
+  font-family: var(--font-mono);
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  background: linear-gradient(180deg, var(--text) 0%, var(--text-muted) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  min-width: 2ch;
+}
+
+.countdown-separator {
+  font-family: var(--font-mono);
+  font-size: clamp(2rem, 5vw, 4rem);
+  color: var(--accent);
+  font-weight: 200;
+  animation: separatorPulse 1s ease-in-out infinite;
+  align-self: flex-start;
+  margin-top: 0.1em;
+}
+
+@keyframes separatorPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.2;
+  }
+}
+
+.countdown-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--text-muted);
+}
+
+/* --- Profile Trigger Button --- */
+.profile-trigger {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.profile-btn {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  color: #e8e8e8;
+  background: none;
+  border: 1px solid #7c6ddb;
+  padding: 12px 40px;
+  min-width: 160px;
+  height: 44px;
+  cursor: pointer;
+  transition:
+    border-color 0.3s ease,
+    color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.profile-btn:hover {
+  border-color: #a594f9;
+  color: #ffffff;
+  box-shadow: 0 0 16px rgba(124, 109, 219, 0.2);
+}
+
+/* --- Terminal Window --- */
+.terminal-window {
+  display: none;
+  opacity: 0;
+  max-width: 680px;
+  width: 100%;
+  background: rgba(10, 10, 15, 0.97);
+  border: 1px solid #2a2a3a;
+  border-radius: 4px;
+  padding: 32px 40px;
+  text-align: left;
+  transition: opacity 0.2s ease;
+}
+
+.terminal-window.is-visible {
+  display: block;
+  opacity: 1;
+}
+
+.terminal-output {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.8;
+  color: #e8e8e8;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+/* --- Terminal Cursor --- */
+.terminal-cursor {
+  color: #9b87d8;
+  font-family: var(--font-mono);
+}
+
+.terminal-cursor.is-blinking {
+  animation: terminalBlink 1s step-end infinite;
+}
+
+@keyframes terminalBlink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+/* --- Terminal Footer Actions --- */
+.terminal-footer {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #2a2a3a;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.terminal-footer.is-visible {
+  opacity: 1;
+}
+
+.terminal-action {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: #7c6ddb;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  padding: 4px 0;
+  transition: color 0.3s ease;
+}
+
+.terminal-action:hover {
+  color: #ffffff;
+}
+
+/* --- Reduced Motion --- */
+@media (prefers-reduced-motion: reduce) {
+  .terminal-output {
+    animation: terminalFadeIn 200ms ease forwards;
+  }
+
+  .terminal-cursor {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+@keyframes terminalFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* --- Footer --- */
+footer {
+  position: relative;
+  z-index: 6;
+  padding: 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.footer-logo {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: var(--text-muted);
+}
+
+.footer-copy {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+  .section {
+    padding: 60px 24px;
+  }
+
+  .features-list {
+    margin-top: 40px;
+  }
+
+  .feature-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 32px 0;
+  }
+
+  .feature-header {
+    gap: 16px;
+  }
+
+  .feature-item p {
+    text-align: left;
+    max-width: 100%;
+  }
+
+  .countdown-display {
+    gap: 8px;
+  }
+
+  .terminal-window {
+    padding: 24px 20px;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+
+  #cursor-trail {
+    display: none;
+  }
+
+  .silk-shoot {
+    stroke-width: 0.8;
+  }
+
+  /* Responsive Text Break */
+  .desktop-only {
+    display: none;
+  }
+}
