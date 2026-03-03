@@ -25,3 +25,6 @@ dist-ssr
 
 # build output
 dist/
+
+# backup files
+*.bak
