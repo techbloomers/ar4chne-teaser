@@ -248,7 +248,6 @@ export function initBackground(canvas) {
   const clock = new THREE.Clock();
 
   function animate() {
-    requestAnimationFrame(animate);
     const elapsed = clock.getElapsedTime();
 
     particleMaterial.uniforms.uTime.value = elapsed;
@@ -375,7 +374,20 @@ export function initBackground(canvas) {
     renderer.render(scene, camera);
   }
 
-  animate();
+  let rafId = null;
+  function animateLoop() {
+    rafId = requestAnimationFrame(animateLoop);
+    animate();
+  }
+  animateLoop();
 
-  return { scene, camera, renderer, staticWeb };
+  // --- Cleanup ---
+  function dispose() {
+    if (rafId) cancelAnimationFrame(rafId);
+    window.removeEventListener('mousemove', onMouseMove);
+    window.removeEventListener('resize', onResize);
+    renderer.dispose();
+  }
+
+  return { scene, camera, renderer, staticWeb, dispose };
 }

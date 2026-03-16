@@ -70,8 +70,9 @@ export function initCursorTrail() {
   window.addEventListener('mousemove', onMouseMove);
 
   // Animation loop
+  let rafId = null;
   function draw() {
-    requestAnimationFrame(draw);
+    rafId = requestAnimationFrame(draw);
 
     // Clear canvas
     ctx.clearRect(
@@ -137,4 +138,12 @@ export function initCursorTrail() {
   }
 
   draw();
+
+  // --- Cleanup ---
+  return function dispose() {
+    if (rafId) cancelAnimationFrame(rafId);
+    window.removeEventListener('resize', resize);
+    window.removeEventListener('mousemove', onMouseMove);
+    clearTimeout(moveTimeout);
+  };
 }

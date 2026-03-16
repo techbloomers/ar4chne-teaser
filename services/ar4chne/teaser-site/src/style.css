@@ -5,16 +5,19 @@
 /* --- CSS Custom Properties --- */
 :root {
   --bg: #0a0a0c;
-  --bg-elevated: #111114;
+
   --text: #d4d4d8;
+  --text-bright: #e8e8e8;
   --text-muted: #71717a;
   --accent: #c084fc;
   --accent-bright: #a855f7;
+  --accent-dim: var(--accent-dim);
+  --accent-soft: var(--accent-soft);
+  --accent-cursor: #9b87d8;
   --accent-glow: rgba(168, 85, 247, 0.4);
-  --thread: rgba(168, 85, 247, 0.15);
+  --border: var(--border);
   --font-sans: 'Space Grotesk', 'Zen Kaku Gothic New', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
-  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* --- Reset --- */
@@ -206,35 +209,6 @@ body {
   pointer-events: none;
 }
 
-/* ============================================
-   SILK OVERLAY — Full-viewport SVG for
-   spider-thread shoot animations
-   ============================================ */
-#silk-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 4;
-  pointer-events: none;
-  overflow: visible;
-}
-
-.silk-shoot {
-  fill: none;
-  stroke: var(--accent);
-  stroke-width: 1.2;
-  stroke-linecap: round;
-  opacity: 0;
-}
-
-/* Small anchor dots where threads attach to section edges */
-.silk-anchor {
-  fill: var(--accent);
-  opacity: 0;
-}
-
 /* --- Noise Overlay --- */
 .noise-overlay {
   position: fixed;
@@ -408,13 +382,6 @@ body {
   opacity: 0;
 }
 
-.scroll-indicator span {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 4px;
-  color: var(--text-muted);
-}
-
 .scroll-thread {
   display: flex;
   flex-direction: column;
@@ -468,11 +435,6 @@ body {
     opacity: 1;
     transform: scale(1.2);
   }
-}
-
-/* --- Concept --- */
-.concept-title {
-  font-weight: 200;
 }
 
 /* ============================================
@@ -650,9 +612,9 @@ body {
   font-size: 14px;
   font-weight: 400;
   letter-spacing: 0.05em;
-  color: #e8e8e8;
+  color: var(--text-bright);
   background: none;
-  border: 1px solid #7c6ddb;
+  border: 1px solid var(--accent-dim);
   padding: 12px 40px;
   min-width: 160px;
   height: 44px;
@@ -676,7 +638,7 @@ body {
 }
 
 .profile-btn:hover {
-  border-color: #a594f9;
+  border-color: var(--accent-soft);
   color: #ffffff;
   box-shadow: 0 0 16px rgba(124, 109, 219, 0.2);
 }
@@ -688,7 +650,7 @@ body {
   max-width: 680px;
   width: 100%;
   background: rgba(10, 10, 15, 0.97);
-  border: 1px solid #2a2a3a;
+  border: 1px solid var(--border);
   border-radius: 4px;
   padding: 32px 40px;
   text-align: left;
@@ -704,14 +666,14 @@ body {
   font-family: var(--font-mono);
   font-size: 13px;
   line-height: 1.8;
-  color: #e8e8e8;
+  color: var(--text-bright);
   white-space: pre-wrap;
   overflow-wrap: break-word;
 }
 
 /* --- Terminal Cursor --- */
 .terminal-cursor {
-  color: #9b87d8;
+  color: var(--accent-cursor);
   font-family: var(--font-mono);
 }
 
@@ -737,7 +699,7 @@ body {
   gap: 32px;
   margin-top: 24px;
   padding-top: 16px;
-  border-top: 1px solid #2a2a3a;
+  border-top: 1px solid var(--border);
   opacity: 0;
   transition: opacity 0.4s ease;
 }
@@ -750,7 +712,7 @@ body {
   font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 0.1em;
-  color: #7c6ddb;
+  color: var(--accent-dim);
   background: none;
   border: none;
   cursor: pointer;
@@ -858,10 +820,6 @@ footer {
 
   #cursor-trail {
     display: none;
-  }
-
-  .silk-shoot {
-    stroke-width: 0.8;
   }
 
   /* Responsive Text Break */

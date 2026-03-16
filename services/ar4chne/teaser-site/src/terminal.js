@@ -151,22 +151,30 @@ export function initTerminal() {
   btnClose.addEventListener('click', () => {
     cancelAnimation();
     terminalWindow.classList.remove('is-visible');
-    setTimeout(() => {
-      terminalWindow.style.display = 'none';
-      terminalOutput.innerHTML = '';
-      terminalFooter.classList.remove('is-visible');
-      fadeIn(trigger, 300);
-    }, 200);
+    terminalWindow.addEventListener(
+      'transitionend',
+      () => {
+        terminalWindow.style.display = 'none';
+        terminalOutput.innerHTML = '';
+        terminalFooter.classList.remove('is-visible');
+        fadeIn(trigger, 300);
+      },
+      { once: true }
+    );
   });
 
   // --- Fade helpers ---
   function fadeOut(el, duration, callback) {
     el.style.transition = `opacity ${duration}ms ease`;
     el.style.opacity = '0';
-    setTimeout(() => {
-      el.style.display = 'none';
-      if (callback) callback();
-    }, duration);
+    el.addEventListener(
+      'transitionend',
+      () => {
+        el.style.display = 'none';
+        if (callback) callback();
+      },
+      { once: true }
+    );
   }
 
   function fadeIn(el, duration) {
