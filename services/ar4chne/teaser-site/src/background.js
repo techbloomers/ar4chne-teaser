@@ -89,7 +89,6 @@ export function initBackground(canvas) {
 
     const web = new THREE.LineSegments(geometry, material);
     web.userData = {
-      webNodes,
       originalPoints: points.map((p) => p.clone()),
     };
     scene.add(web);

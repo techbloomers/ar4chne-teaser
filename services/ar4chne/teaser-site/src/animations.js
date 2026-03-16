@@ -1,6 +1,6 @@
 // ============================================
 // AR4CHNE Teaser — GSAP Animations
-// Includes: Loader, Logo threads, Silk shoot
+// Includes: Loader, Logo threads, Scroll animations
 // ============================================
 
 import gsap from 'gsap';

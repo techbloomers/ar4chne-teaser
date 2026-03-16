@@ -35,5 +35,9 @@ export function initCountdown() {
   }
 
   update();
-  setInterval(update, 1000);
+  const intervalId = setInterval(update, 1000);
+
+  return function dispose() {
+    clearInterval(intervalId);
+  };
 }

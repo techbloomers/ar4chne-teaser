@@ -8,14 +8,15 @@
 
   --text: #d4d4d8;
   --text-bright: #e8e8e8;
+  --text-white: #ffffff;
   --text-muted: #71717a;
   --accent: #c084fc;
   --accent-bright: #a855f7;
-  --accent-dim: var(--accent-dim);
-  --accent-soft: var(--accent-soft);
+  --accent-dim: #7c6ddb;
+  --accent-soft: #a594f9;
   --accent-cursor: #9b87d8;
   --accent-glow: rgba(168, 85, 247, 0.4);
-  --border: var(--border);
+  --border: #2a2a3a;
   --font-sans: 'Space Grotesk', 'Zen Kaku Gothic New', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 }
@@ -639,7 +640,7 @@ body {
 
 .profile-btn:hover {
   border-color: var(--accent-soft);
-  color: #ffffff;
+  color: var(--text-white);
   box-shadow: 0 0 16px rgba(124, 109, 219, 0.2);
 }
 
@@ -723,7 +724,7 @@ body {
 }
 
 .terminal-action:hover {
-  color: #ffffff;
+  color: var(--text-white);
 }
 
 /* --- Reduced Motion --- */
