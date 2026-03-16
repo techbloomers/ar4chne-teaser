@@ -261,6 +261,7 @@ body {
 .section-content {
   max-width: 1100px;
   width: 100%;
+  margin: 0 auto;
 }
 
 .section-label {
@@ -291,6 +292,12 @@ body {
   line-height: 1.8;
   letter-spacing: 0.02em;
   opacity: 0;
+}
+
+/* Prevent awkward line breaks within phrases */
+.nowrap {
+  display: inline-block;
+  white-space: nowrap;
 }
 
 .section-desc em {
@@ -650,10 +657,22 @@ body {
   min-width: 160px;
   height: 44px;
   cursor: pointer;
+  animation: profileGlow 3s ease-in-out infinite;
   transition:
     border-color 0.3s ease,
     color 0.3s ease,
     box-shadow 0.3s ease;
+}
+
+@keyframes profileGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 8px rgba(124, 109, 219, 0.1);
+  }
+
+  50% {
+    box-shadow: 0 0 20px rgba(124, 109, 219, 0.3);
+  }
 }
 
 .profile-btn:hover {
@@ -687,7 +706,7 @@ body {
   line-height: 1.8;
   color: #e8e8e8;
   white-space: pre-wrap;
-  word-break: break-all;
+  overflow-wrap: break-word;
 }
 
 /* --- Terminal Cursor --- */
@@ -811,7 +830,7 @@ footer {
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
-    padding: 32px 0;
+    padding: 32px 8px;
   }
 
   .feature-header {

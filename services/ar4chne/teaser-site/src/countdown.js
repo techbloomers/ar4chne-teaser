@@ -3,10 +3,8 @@
 // ============================================
 
 export function initCountdown() {
-  // Set launch date to 90 days from now
-  const launchDate = new Date();
-  launchDate.setDate(launchDate.getDate() + 90);
-  launchDate.setHours(0, 0, 0, 0);
+  // Fixed launch date
+  const launchDate = new Date('2026-04-01T00:00:00');
 
   const daysEl = document.getElementById('days');
   const hoursEl = document.getElementById('hours');

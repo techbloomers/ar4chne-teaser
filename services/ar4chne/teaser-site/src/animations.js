@@ -17,7 +17,7 @@ export function initAnimations() {
   tl.to('#loader', {
     opacity: 0,
     duration: 0.6,
-    delay: 2.0,
+    delay: 1.0,
     ease: 'power2.inOut',
     onComplete: () => {
       document.getElementById('loader').style.display = 'none';
