@@ -1,0 +1,40 @@
+name: ci-teaser-site
+
+on:
+  pull_request:
+    paths:
+      - "services/ar4chne/teaser-site/**"
+      - ".github/workflows/ci-teaser-site.yml"
+  push:
+    paths:
+      - "services/ar4chne/teaser-site/**"
+      - ".github/workflows/ci-teaser-site.yml"
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: services/ar4chne/teaser-site
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: services/ar4chne/teaser-site/package-lock.json
+
+      - run: npm ci
+      - run: npm run check
+
+      # （任意）ビルド成果物(dist)もActionsから落とせるようにする
+      - name: Upload dist artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: teaser-site-dist
+          path: services/ar4chne/teaser-site/dist
+          if-no-files-found: ignore
+          retention-days: 7
