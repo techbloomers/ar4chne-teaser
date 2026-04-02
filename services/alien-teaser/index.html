@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ALIEN: GENESIS — CLASSIFIED</title>
+  <meta name="description" content="Weyland-Yutani Corporation — Classified Transmission">
+  <meta name="theme-color" content="#0a0a0a">
+
+  <!-- フォント -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+  <!-- スタイルシート -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- GSAP (CDN) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+</head>
+
+<body>
+
+  <!-- ❻ パーティクル星空（最背面） -->
+  <canvas id="particles-canvas"></canvas>
+
+  <!-- ❷ CRTエフェクトレイヤー群 -->
+  <div class="crt-overlay"></div>
+  <div class="crt-scanline-moving"></div>
+  <div class="noise-overlay"></div>
+  <div class="vignette"></div>
+
+  <!-- ❶ ブートシーケンス -->
+  <div class="boot-screen" id="boot-screen">
+    <div class="boot-log" id="boot-log"></div>
+    <button class="boot-enter" id="boot-enter">▶ Initialize Interface</button>
+  </div>
+  <button class="boot-skip" id="boot-skip">[Skip]</button>
+
+  <!-- メインコンテンツ -->
+  <main class="main-content" id="main-content">
+
+    <!-- セクション: ヒーロー -->
+    <section class="section hero" id="section-hero">
+      <div class="hero-subtitle gs-h" id="hero-subtitle">
+        Weyland-Yutani Corporation — Classified File WY-2187
+      </div>
+      <h1 class="hero-title color-aberration glitch-target" id="hero-title">
+        <span class="scramble-text" data-text="ALIEN">ALIEN</span><br>
+        <span class="scramble-text subtitle-text" data-text="GENESIS">GENESIS</span>
+      </h1>
+      <div class="hero-tagline gs-h" id="hero-tagline">
+        In space, no one can hear you scream.
+      </div>
+    </section>
+
+    <!-- セクション: トランスミッション -->
+    <section class="section transmission" id="section-transmission">
+      <div class="transmission-header gs-h">
+        ◈ Incoming Transmission — Priority Alpha — Encrypted
+      </div>
+      <div class="transmission-body" id="transmission-body">
+        <p class="type-line gs-h">&gt; Signal origin: LV-228, Outer Rim Territories</p>
+        <p class="type-line gs-h">&gt; Timestamp: 2187.06.12 — 04:32:07 UTC</p>
+        <p class="type-line gs-h">&gt; Classification: EYES ONLY — Level 6 Clearance</p>
+        <p class="type-line gs-h spacer">Contact lost with research vessel COVENANT-II.</p>
+        <p class="type-line gs-h">Last transmission fragment recovered.</p>
+        <p class="type-line gs-h">Contents... indescribable. They found something.</p>
+        <p class="type-line gs-h spacer alert-text">DO NOT ATTEMPT RECOVERY. DO NOT APPROACH.</p>
+      </div>
+    </section>
+
+    <!-- セクション: 警告 -->
+    <section class="section warning-section" id="section-warning">
+      <div class="warning-rule gs-h"></div>
+      <div class="warning-text glitch-target gs-h" id="warning-text">
+        XENOMORPH<br>DETECTED
+      </div>
+      <div class="warning-sub gs-h" id="warning-sub">
+        Biological contamination — Quarantine Protocol Engaged
+      </div>
+      <div class="warning-rule gs-h"></div>
+    </section>
+
+    <!-- セクション: カウントダウン -->
+    <section class="section countdown-section gs-h" id="section-countdown">
+      <div class="countdown-label">◈ Estimated Arrival — Transmission ETA</div>
+      <div class="countdown-display" id="countdown-display"></div>
+    </section>
+
+    <!-- セクション: フッター -->
+    <section class="section footer-section" id="section-footer">
+      <p>Weyland-Yutani Corporation</p>
+      <p>「Building Better Worlds」</p>
+      <p class="footer-disclaimer">
+        This is a fan-made teaser site. Not affiliated with 20th Century Studios.
+      </p>
+    </section>
+
+  </main>
+
+  <!-- UI要素 -->
+  <div class="scroll-indicator" id="scroll-indicator">
+    Continue Transmission <span class="arrow">▼</span>
+  </div>
+  <button class="audio-btn" id="audio-btn">♪ Sound: OFF</button>
+  <div class="egg-overlay" id="egg-overlay"></div>
+
+  <!-- JavaScript（順序重要：effects → 個別機能 → main） -->
+  <script src="js/effects.js" defer></script>
+  <script src="js/audio.js" defer></script>
+  <script src="js/particles.js" defer></script>
+  <script src="js/easter-egg.js" defer></script>
+  <script src="js/main.js" defer></script>
+
+</body>
+</html>
