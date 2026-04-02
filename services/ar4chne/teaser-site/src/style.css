@@ -827,4 +827,14 @@ footer {
   .desktop-only {
     display: none;
   }
+
+  .nowrap {
+    white-space: normal;
+    display: inline;
+  }
+
+  .section-title {
+    word-break: auto-phrase;
+    overflow-wrap: break-word;
+  }
 }
