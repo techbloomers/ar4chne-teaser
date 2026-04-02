@@ -252,8 +252,6 @@ a {
 .boot-log .line {
   opacity: 0;
   margin-bottom: 0.3em;
-  white-space: nowrap;
-  overflow: hidden;
 }
 
 .boot-log .line.visible {
@@ -699,7 +697,7 @@ a {
   }
 
   .section {
-    padding: 5vh 6vw;
+    padding: 5vh 5vw;
   }
 
   .transmission {
@@ -707,11 +705,17 @@ a {
   }
 
   .hero-subtitle {
-    letter-spacing: 4px;
+    letter-spacing: 2px;
+    word-break: break-word;
   }
 
   .hero-tagline {
     letter-spacing: 2px;
+  }
+
+  .transmission-header {
+    letter-spacing: 1px;
+    word-break: break-word;
   }
 
   .warning-text {
@@ -719,21 +723,31 @@ a {
   }
 
   .warning-sub {
-    letter-spacing: 2px;
+    letter-spacing: 1px;
+    word-break: break-word;
   }
 
   .countdown-label {
-    letter-spacing: 3px;
+    letter-spacing: 2px;
+    word-break: break-word;
+  }
+
+  .footer-section {
+    letter-spacing: 1px;
+  }
+
+  .boot-log .line {
+    word-break: break-word;
+  }
+
+  .egg-overlay {
+    letter-spacing: 2px;
   }
 }
 
 @media (max-width: 480px) {
   .section {
-    padding: 5vh 5vw;
-  }
-
-  .transmission {
-    padding: 0 2vw;
+    padding: 5vh 4vw;
   }
 
   .hero-title {
@@ -744,7 +758,19 @@ a {
     letter-spacing: 0.1em;
   }
 
+  .hero-subtitle {
+    letter-spacing: 1px;
+  }
+
   .warning-text {
+    letter-spacing: 2px;
+  }
+
+  .countdown-label {
+    letter-spacing: 1px;
+  }
+
+  .scroll-indicator {
     letter-spacing: 2px;
   }
 }
